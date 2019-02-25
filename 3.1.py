@@ -237,7 +237,47 @@
 #解析链接
 #urlparse()
 #可以实现URL的识别和分段
-from urllib.parse import urlparse
-result = urlparse('http://www.baidu.com/index.html;user?id=5#comment')
-print(type(result), result)
- 
+# from urllib.parse import urlparse
+# result = urlparse('http://www.baidu.com/index.html;user?id=5#comment')
+# print(type(result), result)
+
+#scheme 参数
+# import ssl
+# from urllib.parse import urlparse
+# ssl._create_default_https_context = ssl._create_unverified_context
+# result = urlparse('www.baidu.com/index.html;user?id=5#comment', 'https')
+# print(result)
+
+#allow_fragments   fragment部分为空
+# from urllib.parse import urlparse
+# result = urlparse(
+#     'http://www.baidu.com/index.html;user?id=5#comment', allow_fragments=False)
+# print(result)
+
+#返回结果ParseResult 实际上是一个元组，我们可以用索引顺序来获取，也可以用属性名获取，
+
+# from urllib.parse import urlparse
+# result=urlparse('http://www.baidu.com/index.html#comment',allow_fragments=False)
+# print(result.scheme,result[0],result.netloc,result[1])
+
+#urlunparse() 可迭代对象 长度必须是6 参数data用了列表类型，可以用元组或者特定的数据结构
+# from  urllib.parse import urlunparse
+# data=['http','www.baidu.com','index.html','user','a=6','comment']
+# print(urlunparse(data))
+
+#urlspit() 和urlparse()方法类似，只不过不再单独解析params这部分，params会合并到path中
+# from urllib.parse import urlsplit
+
+# result = urlsplit('http://www.baidu.com/index.html;user?id=5#comment')
+# print(result)
+
+#SplitResult结果是一个元组类型，可以用属性获取，索引获取
+# from urllib.parse import urlsplit
+# result = urlsplit('http://www.baidu.com/index.html;user?id=5#commment')
+# print(result.scheme, result[0])
+
+#urlunsplit() 和urlunpaser()类似，它也是将各个部分组合成完整链接的方法，传入的参数是一个可迭代的对象，例如列表，元组等
+
+# from urllib.parse import urlunsplit
+# data=['http','www.baidu.com','index.html','a=6','comment']
+# print(urlunsplit(data))
