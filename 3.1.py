@@ -281,3 +281,72 @@
 # from urllib.parse import urlunsplit
 # data=['http','www.baidu.com','index.html','a=6','comment']
 # print(urlunsplit(data))
+
+#urljion() base_url作为第一个链接，将新的链接作为第二个参数
+# from urllib.parse import urljoin
+# print(urljoin('http://www.baidu.com','FAQ.html'))
+# print(urljoin('http://www.baidu.com','https://cuiqingcai.com/FAQ.html'))
+# print(urljoin('http://www.baidu.com/about.html','https://cuiqingcai.com/FAQ.html?question=2'))
+# print(urljoin('http://www.baidu.com/wd=abc','https://cuiqingcai.com/index.php'))
+# print(urljoin('www.baidu.com','?category=2#comment'))
+# print(urljoin('www.baidu.com#comment','?category=2'))
+
+#urlencode()构造GET请求参数 将字典参数序列化为URL的参数
+# from urllib.parse import urlencode
+# params = {'name': 'germey', 'age': 22}
+# base_url = 'http://www.baidu.com'
+# url = base_url + urlencode(params)
+# print(url)
+
+#parse_qs() 反序列化 把str类型转化为字典类型
+# from urllib.parse import parse_qs
+# query = 'name=germey&age=22'
+# print(parse_qs(query))
+
+#parse_qsl()用于将str类型的GET参数转化为元组组成的列表 第一个内容是参数名，第二个内容是参数值
+# from urllib.parse import parse_qsl
+# query = 'name=germey&age=22'
+# print(parse_qsl(query))
+
+#quote() 这个方法可以将内容转化为URL编码格式
+# from urllib.parse import quote
+
+# keyword = '壁纸'
+# url = 'https://www.baidu.com/s?wd=' + quote(keyword)
+# print(url)
+
+#unquote()将URL编码的格式转化为内容
+# from urllib.parse import unquote
+# url = 'https://www.baidu.com/s?wd=%E5%A3%81%E7%BA%B8'
+# print(unquote(url))
+
+#robotparser类 RobotFileParser(url='') 创建了RobotFileParser对象，然后通过set_url()方法设置robots.txt的链接 用can_fetch判断
+# from urllib.robotparser import RobotFileParser
+# import ssl
+# ssl._create_default_https_context = ssl._create_unverified_context
+# rp = RobotFileParser()
+# rp.set_url('http://www.jianshu.com/robots.txt')
+# rp.read()
+# print(rp.can_fetch('*', 'http://www.jianshu.com/p/b67554025d7d'))
+# print(
+#     rp.can_fetch('*',
+#                  'http://www.jianshu.com/search?q=python&type=collections'))
+
+#使用parse()方法执行读取和分析
+#urlopen 打开请求会发生403错误 网站服务器会检查User-Agent 用urllib.request.Request 构造完整的请求头
+# from urllib.robotparser import RobotFileParser
+# from urllib.request import urlopen, Request
+# import ssl
+# ssl._create_default_https_context = ssl._create_unverified_context
+# headers = {
+#     'User-Agent':
+#     'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/72.0.3626.109 Safari/537.36'
+# }
+# req = Request('https://www.jianshu.com/robots.txt', headers=headers)
+# rp = RobotFileParser()
+# rp.parse(urlopen(req).read().decode('utf-8').split('\n'))
+# print(rp.can_fetch('*', 'http://www.jianshu.com/p/b67554025d7d'))
+# print(
+#     rp.can_fetch('*',
+#                  'http://www.jianshu.com/search?q=python&page=collection'))
+
