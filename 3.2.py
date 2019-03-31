@@ -71,3 +71,132 @@
 # data={'name':'germey','age':'22'}
 # r=requests.post('http://httpbin.org/post',data=data)
 # print(r.text)
+
+#响应 我们使用text和conten获取响应的内容
+# import requests
+# r = requests.get('http://www.jianshu.com')
+# print(type(r.status_code), r.status_code)
+# print(type(r.headers), r.headers)
+# print(type(r.url), r.url)
+# print(type(r.history), r.history)
+#requests提供了一个内置状态查询码
+
+# import requests
+# r = requests.get('http://www.jianshu.com')
+# if not r.status_code == requests.codes.ok else print(
+#     'Rquests Successfully')
+
+#requests高级用法,文件上传，Cookies设置，代理设置
+#文件上传 模拟文件上传过程
+# import requests
+
+# files = {'file': open('favico.ico', 'rb')}
+# r = requests.post('http://httpbin.org/post', files=files)
+# print(r.text)
+
+#requests 处理Cookies
+# import requests
+# r = requests.get('https://www.baidu.com')
+# print(r.cookies)                          #RequestCookieJar类型
+# for key, value in r.cookies.items():         #item()转换为元组组成的列表
+#     print(key + '=' + value)
+
+#用Cookie来维持登录状态
+# import reuqests
+# headers={
+#     'Cookie':''
+# }
+# r=requests.get('https://zhihu.com',headers=headers)
+# print(text)
+#通过构造cookies参数来设置
+# import requests
+# cookies=''
+# jar=requests.cookies.RequestsCookieJar()
+# headers={
+#     'Host':'www.zhihu.com',
+#     'User-Agent':''
+# }
+# for cookie in cookies.split(';'):
+#     key,value=cookie.split('=',1)
+#     jar.set(key,value)
+# r=reuqests.get('http://www.zhihu.com',cookies=jar,headers=headers)
+
+#会话维持 Session对象
+# import requests
+# s=requests.Session()
+# s.get('http://httpbin.org/cookies/set/number/123456789')
+# r=s.get('http://httpbin.org/cookies')
+# print(r.text)
+
+#证书验证 verify参数控制是否检查此证书，不假verify参数的话，默认是True,自动检测
+# import requests
+
+# response=requests.get('https://www.12306.cn',verify=False)
+# print(response.status_code)
+
+#通过设置忽略警告的方式来屏蔽这个警告
+# import requests
+# from requests.packages import urllib3
+# urllib3.disable_warnings()
+# response=requests.get('https://www.12306.cn',verify=False)
+# print(response.status_code)
+# #通过捕获警告到日志的方式忽略警告
+# import logging
+# import requests
+# logging.captureWarnings(True)
+# response=requests.get('https://www,12306.cn',verify=False)
+# print(response.status_code)
+
+#代理设置 proxies参数  代理需要换成自己的
+# import requests
+# proxies={
+#     'http':'http://10.10.1.10:3128',
+#     'https':'http://10.10.1.10:1080',
+# }
+# requests.get('https://www.taobao.com',proxies=proxies)
+
+#若代理需要HTTP Basic Auth
+# import requests
+# proxies = {
+#     'http': 'http://user.password@10.10.1.10:3182/',
+# }
+# requests.get('https://www.taobao.com', proxies=proxies)
+
+#requests还支持SOCKS协议的代理
+# import requests
+# proxies={
+#     'http':'socks5://user:password@host:port',
+#     'https':'socks5://user:password@host:port'
+# }
+# requests.get('https://www.taobao.com',proxies=proxies)
+
+#超时设置
+# import requests
+# r = requests.get('https://www.taobao.com', timeout=1)
+# print(r.status_code)
+
+#身份认证  提供了一个HTTPBasicAuth类
+# import requests
+# from requests.auth import HTTPBasicAuth
+# r= requests.get('http://',auth=HTTPBasicAuth('username','password'))
+# print(r.status_code)
+#更加优化
+# import requests
+# r=requests.get('http://www.',auth=('username','password'))
+# print(r.status_code)
+#OAuth认证
+
+#Prepared Rquest
+# from requests import Rquest,Session
+# url='http://httpbin.org/post'
+# data={
+#     'name':'germey'
+# }
+# headers={
+#     'User-agent':''
+# }
+# s=Session()
+# req=Requests('POST',url,data=data,headers=headers)
+# prepped=s.prepare_request(req)
+# r=s.send(prepped)
+# print(r.text)
